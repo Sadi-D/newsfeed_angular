@@ -1,0 +1,63 @@
+<div id="homeContainer">
+  <div class="container">
+    <h1 class="page-title semi-bold">
+      <span class="subtitle" *ngIf="currentUser">{{currentUser.firstname}} {{ currentUser.lastname }}</span>
+    </h1>
+  </div>
+
+  <div class="container" *ngIf="currentUser">
+    <div class="text-right">bookmarks ({{currentUser.bookmarks.length}})</div>
+    <span class="bookmark" *ngFor="let bookmark of currentUser.bookmarks" (click)="changeSelectedSource(bookmark.id)">{{bookmark.name}}</span>
+
+  </div>
+
+  <div class="container mb-7">
+    <div class="input-container">
+      <label for="source">Source</label><br/>
+      <select id="source" [ngModel]="selectedSource.id" (change)="changeSelectedSource($event.target.value)">
+        <option disabled>Choisir une Source</option>
+        <option *ngFor="let source of sources" [value]="source.id">{{ source.name }}</option>
+      </select>
+    </div>
+    <div class="input-container">
+      <label for="keyword">Mot-clé</label><br/>
+      <input id="keyword" type="text" [(ngModel)]="keyword" />
+    </div>
+
+    <div class="text-center">
+      <button (click)="search()">
+        <span *ngIf="!loading">Rechercher</span>
+        <span *ngIf="loading">Recherche…</span>
+      </button>
+      <button (click)="addToBookmarks()" *ngIf="currentUser && isInBookmark() === false">
+        <span *ngIf="!adding">Ajouter aux bookmarks</span>
+        <span *ngIf="adding">Ajout…</span>
+      </button>
+      <button  (click)="removeFromBookmarks()" *ngIf="currentUser && isInBookmark() === true">
+        <span *ngIf="!removing">Supprimer le bookmark</span>
+        <span *ngIf="removing">Suppression…</span>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="articles && articles.length === 0">Pas de résultat</div>
+
+  <div class="articles" *ngIf="articles && articles.length > 0">
+    <div class="item" *ngFor="let article of articles">
+      <img [src]="article.urlToImage" />
+      <div>
+        <h3 class="h3">{{article.title}}</h3>
+        <p>{{article.description}}</p>
+        <div>
+          <p>{{moment(article.publishedAt).format('D/MM/YYYY')}}</p>
+          <div *ngIf="currentUser">
+            <a [href]="article.url">
+              Lire l'article
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+</div>

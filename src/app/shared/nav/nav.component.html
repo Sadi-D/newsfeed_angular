@@ -1,0 +1,26 @@
+<nav class="hide-md hide-lg">
+  <div  (click)="toggleMobileMenu()">
+    <div  [ngClass]="{'cross': mobileNav.isOpen === true}"></div>
+  </div>
+
+  <div  [ngClass]="{'opened': mobileNav.isOpen === true}">
+    <h2 (click)="toggleMobileMenu()" [routerLink]="['/']">Newsfeed</h2>
+    <div>
+      <ul>
+        <li>
+          <a (click)="toggleMobileMenu()" [routerLink]="['/']">Accueil</a>
+        </li>
+        <li>
+          <a (click)="toggleMobileMenu()" [routerLink]="['/login']" *ngIf="!currentUser">Se connecter</a>
+        </li>
+        <li>
+          <a (click)="toggleMobileMenu()" [routerLink]="['/register']" *ngIf="!currentUser">S'inscrire</a>
+        </li>
+        <li>
+          <a (click)="logout()" *ngIf="currentUser">Se déconnecter</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+

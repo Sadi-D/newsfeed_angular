@@ -1,0 +1,41 @@
+<div id="registerContainer">
+  <div class="container desktop-nav-avoider register-content">
+    <div class="input-container">
+      <label for="email">Identifiant</label><br/>
+      <input id="email" class="border-input" type="email" placeholder="Email" [(ngModel)]="user.email" />
+    </div>
+    <div class="input-container">
+      <label for="firstname">Prénom</label><br/>
+      <input id="firstname" class="border-input" type="text" placeholder="Votre prénom" [(ngModel)]="user.firstName" />
+    </div>
+    <div class="input-container">
+      <label for="lastname">Nom</label><br/>
+      <input id="lastname" class="border-input" type="text" placeholder="Votre nom" [(ngModel)]="user.lastName" />
+    </div>
+    <div class="input-container">
+      <label for="password">Mot de passe</label><br/>
+      <input id="password" class="border-input" [ngClass]="{'red-border': errors.password.reference }" type="password" placeholder="Mot de passe" [(ngModel)]="password.reference" />
+      <div class="input-error mt-1" *ngIf="errors.password.reference">
+        Votre mot de passe doit contenir:
+        <ul>
+          <li class="ml-1">- Une majuscule</li>
+          <li class="ml-1">- Au moins 1 chiffre</li>
+          <li class="ml-1">- Au moins 1 lettre</li>
+          <li class="ml-1">- Au moins 8 caractères</li>
+        </ul>
+      </div>
+    </div>
+    <div class="input-container">
+      <label for="password">Confirmer le mot de passe</label><br/>
+      <input id="password" class="border-input" [ngClass]="{'red-border': errors.password.confirmation }" type="password" placeholder="Confirmer le mot de passe" [(ngModel)]="password.confirmation" />
+      <div class="input-error mt-1" *ngIf="errors.password.confirmation">Les mots de passe ne correspondent pas</div>
+    </div>
+
+    <div class="button-container text-center py-4">
+      <button class="register-button bold" (click)="register()">
+        <span *ngIf="!loading">S'inscrire</span>
+        <span *ngIf="loading">Inscription</span>
+      </button>
+    </div>
+  </div>
+</div>

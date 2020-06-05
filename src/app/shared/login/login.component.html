@@ -1,0 +1,23 @@
+<div id="loginContainer">
+  <div class="container desktop-nav-avoider login-content">
+
+    <div class="input-container">
+      <label for="email">Identifiant</label><br/>
+      <input id="email" class="border-input" [ngClass]="{'red-border': errors.email}" type="email" placeholder="Email" [(ngModel)]="login.email" />
+      <div class="input-error mt-1" *ngIf="errors.email">Veuillez remplir ce champ</div>
+    </div>
+    <div class="input-container">
+      <label for="password">Mot de passe</label><br/>
+      <input id="password" class="border-input" [ngClass]="{'red-border': errors.password }" type="password" placeholder="Mot de passe" [(ngModel)]="login.password" />
+      <div class="input-error mt-1" *ngIf="errors.badCredentials">Identifiant ou mot de passe incorrect</div>
+      <div class="input-error mt-1" *ngIf="errors.password">Veuillez remplir ce champ</div>
+    </div>
+
+    <div class="button-container text-center py-4">
+      <button class="login-button bold" (click)="logIn()">
+        <span *ngIf="!loading">Se connecter</span>
+        <span *ngIf="loading">Connexion</span>
+      </button>
+    </div>
+  </div>
+</div>
